@@ -1,4 +1,4 @@
-module github.com/bytegrunt/go-spotify-me
+module github.com/CyberGrit/go-spotify-me
 
 go 1.24.2
 

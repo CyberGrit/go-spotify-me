@@ -14,7 +14,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/bytegrunt/go-spotify-me/internal/logging"
+	"github.com/CyberGrit/go-spotify-me/internal/logging"
 	"github.com/zalando/go-keyring"
 	"go.uber.org/zap"
 )

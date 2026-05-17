@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/bytegrunt/go-spotify-me/internal/theme"
+	"github.com/CyberGrit/go-spotify-me/internal/theme"
 	"github.com/charmbracelet/bubbles/table"
 )
 

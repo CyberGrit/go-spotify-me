@@ -3,7 +3,7 @@ package cmd
 import (
 	"strings"
 
-	"github.com/bytegrunt/go-spotify-me/internal/auth"
+	"github.com/CyberGrit/go-spotify-me/internal/auth"
 )
 
 // Artist represents an artist's details

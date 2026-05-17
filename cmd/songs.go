@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/bytegrunt/go-spotify-me/internal/auth"
+	"github.com/CyberGrit/go-spotify-me/internal/auth"
 )
 
 type Song struct {

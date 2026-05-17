@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/bytegrunt/go-spotify-me/cmd"
+	"github.com/CyberGrit/go-spotify-me/cmd"
 	tea "github.com/charmbracelet/bubbletea"
 	"go.uber.org/zap"
 )

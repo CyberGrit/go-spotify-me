@@ -12,7 +12,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/bytegrunt/go-spotify-me/internal/auth"
+	"github.com/CyberGrit/go-spotify-me/internal/auth"
 	"github.com/zalando/go-keyring"
 	"go.uber.org/zap"
 )
