@@ -39,6 +39,7 @@ func Login() error {
 		return fmt.Errorf("failed to get client ID: %w", err)
 	}
 
+	//nolint:gosec // G101: false positive - these are public API URLs, not credentials
 	authConfig := auth.AuthConfig{
 		RedirectURI: "http://127.0.0.1:9000/callback",
 		AuthURL:     "https://accounts.spotify.com/authorize",
