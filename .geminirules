@@ -1,0 +1,5 @@
+# Workspace Rules
+
+Whenever you make changes to the code in this repository, you MUST follow these instructions before concluding your work:
+1. Run `go test ./...` to verify that all unit tests pass.
+2. Run `golangci-lint run` to verify that there are no linting errors.
