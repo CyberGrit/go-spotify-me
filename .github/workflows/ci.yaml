@@ -1,4 +1,4 @@
-name: Run linters
+name: CI
 on:
   push:
     branches:
@@ -22,3 +22,31 @@ jobs:
         uses: golangci/golangci-lint-action@v9
         with:
           version: latest
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v6
+
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+
+      - name: test
+        run: go test -v ./...
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v6
+
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+
+      - name: build
+        run: go build -v ./...
