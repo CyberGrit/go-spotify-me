@@ -18,7 +18,8 @@ func TestMakeAPIRequest_Success(t *testing.T) {
 	}))
 	defer server.Close()
 
-	response, err := MakeAPIRequest("test_token", server.URL)
+	client := &DefaultSpotifyClient{}
+	response, err := client.makeAPIRequest("test_token", server.URL)
 	if err != nil {
 		t.Fatalf("Expected no error, got %v", err)
 	}
@@ -39,7 +40,8 @@ func TestMakeAPIRequest_ErrorStatus(t *testing.T) {
 	}))
 	defer server.Close()
 
-	_, err := MakeAPIRequest("test_token", server.URL)
+	client := &DefaultSpotifyClient{}
+	_, err := client.makeAPIRequest("test_token", server.URL)
 	if err == nil {
 		t.Fatalf("Expected error for non-200 status code, got nil")
 	}
@@ -58,7 +60,8 @@ func TestMakeAPIRequest_InvalidJSON(t *testing.T) {
 	}))
 	defer server.Close()
 
-	_, err := MakeAPIRequest("test_token", server.URL)
+	client := &DefaultSpotifyClient{}
+	_, err := client.makeAPIRequest("test_token", server.URL)
 	if err == nil {
 		t.Fatalf("Expected error for invalid JSON, got nil")
 	}

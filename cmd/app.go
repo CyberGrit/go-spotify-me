@@ -18,6 +18,7 @@ const (
 )
 
 type appModel struct {
+	client          SpotifyClient
 	currentView     viewType
 	clientID        string
 	me              Me              // User information
@@ -41,6 +42,8 @@ func (m appModel) Init() tea.Cmd {
 }
 
 func InitialAppModel(clientID string) appModel {
+	client := &DefaultSpotifyClient{}
+
 	if clientID == "" {
 		ti := textinput.New()
 		ti.Placeholder = "Enter your Spotify Client ID"
@@ -49,6 +52,7 @@ func InitialAppModel(clientID string) appModel {
 		ti.Width = 50
 
 		return appModel{
+			client:      client,
 			currentView: viewEnterClientID,
 			textInput:   ti,
 		}
@@ -57,11 +61,12 @@ func InitialAppModel(clientID string) appModel {
 	err := Login()
 	if err != nil {
 		return appModel{
+			client: client,
 			err: fmt.Errorf("failed to log in: %w", err),
 		}
 	}
 
-	me, err := fetchMe()
+	me, err := client.GetMe()
 	if err != nil {
 		me = Me{
 			DisplayName: "Unknown",
@@ -95,6 +100,7 @@ func InitialAppModel(clientID string) appModel {
 	)
 
 	return appModel{
+		client:          client,
 		currentView:     viewMenu,
 		clientID:        clientID,
 		me:              me,
