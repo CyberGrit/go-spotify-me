@@ -9,7 +9,7 @@ import (
 
 func TestGenerateCodeVerifier(t *testing.T) {
 	verifier := GenerateCodeVerifier()
-	
+
 	if len(verifier) != 64 {
 		t.Errorf("Expected length 64, got %d", len(verifier))
 	}
@@ -22,12 +22,12 @@ func TestGenerateCodeVerifier(t *testing.T) {
 
 func TestGenerateCodeChallenge(t *testing.T) {
 	verifier := "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmn"
-	
+
 	expectedHash := sha256.Sum256([]byte(verifier))
 	expectedChallenge := base64.RawURLEncoding.EncodeToString(expectedHash[:])
-	
+
 	challenge := GenerateCodeChallenge(verifier)
-	
+
 	if challenge != expectedChallenge {
 		t.Errorf("Expected challenge %s, got %s", expectedChallenge, challenge)
 	}

@@ -14,7 +14,7 @@ func TestDebugLog(t *testing.T) {
 	// We cannot easily assert the stdout output here without mocking os.Stdout
 	// or zap, but we can assure it doesn't panic when calling the function.
 	DebugLog("Test %s", "message")
-	
+
 	// Reset to false to avoid side effects in other tests if any
 	Debug = false
 }

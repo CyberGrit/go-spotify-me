@@ -35,9 +35,9 @@ func TestTruncateOrPad(t *testing.T) {
 func TestRenderRow(t *testing.T) {
 	cells := []string{"1", "Test Song", "Artist Name"}
 	widths := []int{2, 10, 15}
-	
+
 	result := RenderRow(cells, widths, RowStyle)
-	
+
 	// We check for the presence of the values and separator since lipgloss
 	// adds ANSI escape codes for styling which are hard to string match exactly.
 	if !strings.Contains(result, "1 ") {

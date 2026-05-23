@@ -35,12 +35,12 @@ func TestCalculateColumnWidths(t *testing.T) {
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
 			result := calculateColumnWidths(tc.totalWidth, tc.ratios)
-			
+
 			// Verify exact expected widths
 			if !reflect.DeepEqual(result, tc.expected) {
 				t.Errorf("Expected %v, got %v", tc.expected, result)
 			}
-			
+
 			// Verify total sum equals totalWidth - padding
 			padding := 3 * (len(tc.ratios) - 1)
 			expectedSum := tc.totalWidth - padding
@@ -48,7 +48,7 @@ func TestCalculateColumnWidths(t *testing.T) {
 			for _, w := range result {
 				sum += w
 			}
-			
+
 			if sum != expectedSum {
 				t.Errorf("Expected sum %d, got %d", expectedSum, sum)
 			}

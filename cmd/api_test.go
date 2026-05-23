@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -45,7 +44,7 @@ func TestMakeAPIRequest_ErrorStatus(t *testing.T) {
 		t.Fatalf("Expected error for non-200 status code, got nil")
 	}
 
-	expectedErrMsg := fmt.Sprintf("API request failed with status code 404: Not Found")
+	expectedErrMsg := "API request failed with status code 404: Not Found"
 	if err.Error() != expectedErrMsg {
 		t.Errorf("Expected error message '%s', got '%s'", expectedErrMsg, err.Error())
 	}
