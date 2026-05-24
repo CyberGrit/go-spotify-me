@@ -12,7 +12,8 @@ type Song struct {
 }
 
 func fetchSongsPage(url string) (APIResponse, error) {
-	token, _ := auth.GetValidAccessToken()
+	store := auth.NewOSStore(nil)
+	token, _, _ := store.GetAccessToken()
 	response, err := MakeAPIRequest(token, url)
 	if err != nil {
 		return APIResponse{}, err
