@@ -20,6 +20,7 @@ const (
 type appModel struct {
 	currentView     viewType
 	clientID        string
+	provider        DataProvider
 	me              Me              // User information
 	textInput       textinput.Model // Text input for Client ID
 	artists         APIResponse
@@ -51,6 +52,7 @@ func InitialAppModel(clientID string) appModel {
 		return appModel{
 			currentView: viewEnterClientID,
 			textInput:   ti,
+			provider:    &SpotifyDataProvider{},
 		}
 	}
 
@@ -97,6 +99,7 @@ func InitialAppModel(clientID string) appModel {
 	return appModel{
 		currentView:     viewMenu,
 		clientID:        clientID,
+		provider:        &SpotifyDataProvider{},
 		me:              me,
 		artistTable:     artistTable,
 		artistColWidths: artistColWidths,
