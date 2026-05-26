@@ -1,4 +1,4 @@
-package cmd
+package spotify
 
 import (
 	"encoding/json"
@@ -8,16 +8,32 @@ import (
 	"net/http"
 )
 
-// MakeAPIRequest makes a GET request to the Spotify API and returns the response or an error
-func MakeAPIRequest(token string, url string) (map[string]interface{}, error) {
+// Client defines the interface for making Spotify API requests.
+type Client interface {
+	Get(token, url string) (map[string]interface{}, error)
+}
+
+// DefaultClient is the concrete implementation of the Client interface.
+type DefaultClient struct {
+	httpClient *http.Client
+}
+
+// NewDefaultClient creates a new DefaultClient.
+func NewDefaultClient() *DefaultClient {
+	return &DefaultClient{
+		httpClient: &http.Client{},
+	}
+}
+
+// Get makes a GET request to the Spotify API.
+func (c *DefaultClient) Get(token, url string) (map[string]interface{}, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create request: %w", err)
 	}
 	req.Header.Set("Authorization", "Bearer "+token)
 
-	client := &http.Client{}
-	resp, err := client.Do(req)
+	resp, err := c.httpClient.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to make API request: %w", err)
 	}
