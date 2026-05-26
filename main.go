@@ -6,7 +6,7 @@ import (
 
 	"github.com/CyberGrit/go-spotify-me/cmd"
 	"github.com/CyberGrit/go-spotify-me/internal/auth"
-	"github.com/charmbracelet/bubbletea"
+	tea "github.com/charmbracelet/bubbletea"
 	"go.uber.org/zap"
 )
 

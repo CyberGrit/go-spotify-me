@@ -16,13 +16,13 @@ import (
 type TokenStore interface {
 	GetRefreshToken() (string, error)
 	SetRefreshToken(token string) error
-	
+
 	GetClientID() (string, error)
 	SetClientID(id string) error
-	
+
 	GetAccessToken() (string, time.Time, error)
 	SetAccessToken(token string, expiresAt time.Time, refreshToken string) error
-	
+
 	Clear() error
 }
 
@@ -113,7 +113,7 @@ func (s *OSStore) GetAccessToken() (string, time.Time, error) {
 		return "", time.Time{}, err
 	}
 
-	file, err := os.OpenFile(filePath, os.O_CREATE|os.O_RDWR, 0600)
+	file, err := os.OpenFile(filePath, os.O_CREATE|os.O_RDWR, 0o600)
 	if err != nil {
 		return "", time.Time{}, fmt.Errorf("failed to open file: %w", err)
 	}
@@ -156,7 +156,7 @@ func (s *OSStore) SetAccessToken(token string, expiresAt time.Time, refreshToken
 		return err
 	}
 
-	file, err := os.OpenFile(filePath, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0600)
+	file, err := os.OpenFile(filePath, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0o600)
 	if err != nil {
 		return fmt.Errorf("failed to open file for writing: %w", err)
 	}
