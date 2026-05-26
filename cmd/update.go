@@ -3,9 +3,9 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/CyberGrit/go-spotify-me/internal/auth"
 	"github.com/charmbracelet/bubbles/table"
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/zalando/go-keyring"
 )
 
 type APIResponse struct {
@@ -183,9 +183,10 @@ func (m appModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			// Handle entering the Client ID
 			if m.currentView == viewEnterClientID {
 				m.clientID = m.textInput.Value()
-				err := keyring.Set("go-spotify-me-cli", "client_id", m.clientID)
+				store := auth.NewOSStore(nil)
+				err := store.SetClientID(m.clientID)
 				if err != nil {
-					m.err = fmt.Errorf("failed to store client ID in keyring: %w", err)
+					m.err = fmt.Errorf("failed to store client ID: %w", err)
 					return m, nil
 				}
 
