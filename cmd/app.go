@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/CyberGrit/go-spotify-me/internal/spotify"
 	"github.com/charmbracelet/bubbles/table"
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
@@ -30,6 +31,7 @@ type appModel struct {
 	songColWidths   []int
 	windowSize      tea.WindowSizeMsg
 	err             error
+	spotifyClient   spotify.Client
 }
 
 func (m appModel) Init() tea.Cmd {
@@ -41,6 +43,8 @@ func (m appModel) Init() tea.Cmd {
 }
 
 func InitialAppModel(clientID string) appModel {
+	client := spotify.NewDefaultClient()
+
 	if clientID == "" {
 		ti := textinput.New()
 		ti.Placeholder = "Enter your Spotify Client ID"
@@ -49,19 +53,21 @@ func InitialAppModel(clientID string) appModel {
 		ti.Width = 50
 
 		return appModel{
-			currentView: viewEnterClientID,
-			textInput:   ti,
+			currentView:   viewEnterClientID,
+			textInput:     ti,
+			spotifyClient: client,
 		}
 	}
 
 	err := Login()
 	if err != nil {
 		return appModel{
-			err: fmt.Errorf("failed to log in: %w", err),
+			err:           fmt.Errorf("failed to log in: %w", err),
+			spotifyClient: client,
 		}
 	}
 
-	me, err := fetchMe()
+	me, err := fetchMe(client)
 	if err != nil {
 		me = Me{
 			DisplayName: "Unknown",
@@ -102,5 +108,6 @@ func InitialAppModel(clientID string) appModel {
 		artistColWidths: artistColWidths,
 		songTable:       songTable,
 		songColWidths:   songColWidths,
+		spotifyClient:   client,
 	}
 }
