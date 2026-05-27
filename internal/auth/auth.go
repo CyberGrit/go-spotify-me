@@ -142,3 +142,9 @@ func RefreshAccessToken(authConfig AuthConfig, refreshToken string, store TokenS
 	return nil
 }
 
+// GetValidAccessToken returns a valid access token from the OSStore.
+func GetValidAccessToken() (string, error) {
+	store := NewOSStore(logger)
+	token, _, err := store.GetAccessToken()
+	return token, err
+}

@@ -125,7 +125,7 @@ func (m appModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				}
 
 				// Fetch the user's information
-				me, err := fetchMe()
+				me, err := fetchMe(m.client)
 				if err != nil {
 					m.err = fmt.Errorf("failed to fetch user info: %w", err)
 					return m, nil
