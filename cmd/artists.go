@@ -14,7 +14,8 @@ type Artist struct {
 }
 
 func fetchArtistsPage(url string) (APIResponse, error) {
-	token, _ := auth.GetValidAccessToken()
+	store := auth.NewOSStore(logger)
+	token, _, _ := store.GetAccessToken()
 	response, err := MakeAPIRequest(token, url)
 	if err != nil {
 		return APIResponse{}, err

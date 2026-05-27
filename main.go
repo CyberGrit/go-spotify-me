@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/CyberGrit/go-spotify-me/cmd"
+	"github.com/CyberGrit/go-spotify-me/internal/auth"
 	tea "github.com/charmbracelet/bubbletea"
 	"go.uber.org/zap"
 )
@@ -39,7 +40,8 @@ func main() {
 		}
 	}
 
-	clientID, err := cmd.GetClientID()
+	store := auth.NewOSStore(logger)
+	clientID, err := cmd.GetClientID(store)
 	if err != nil {
 		logger.Fatal("Failed to retrieve client ID", zap.Error(err))
 	}
